@@ -1,0 +1,62 @@
+// Prisma schema — Controle de Validade de Produtos
+// Banco de dados: SQLite (desenvolvimento) — troque por PostgreSQL/MySQL em produção
+//   DATABASE_URL="postgresql://user:pass@host:5432/dbname"
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// Categorias de produto
+// ─────────────────────────────────────────────
+model Categoria {
+  id       Int       @id @default(autoincrement())
+  nome     String    @unique
+  produtos Produto[]
+
+  @@map("categorias")
+}
+
+// ─────────────────────────────────────────────
+// Localizações no depósito
+// ─────────────────────────────────────────────
+model Localizacao {
+  id       Int       @id @default(autoincrement())
+  codigo   String    @unique   // ex: "A1", "B3-FUNDO"
+  descricao String?
+  produtos Produto[]
+
+  @@map("localizacoes")
+}
+
+// ─────────────────────────────────────────────
+// Produtos (tabela principal)
+// ─────────────────────────────────────────────
+model Produto {
+  id           Int      @id @default(autoincrement())
+  codigoBarras String?  @map("codigo_barras")
+  descricao    String
+  quantidade   Int      @default(0)
+  dataValidade DateTime @map("data_validade")
+  observacoes  String?
+
+  // Relacionamentos opcionais — podem ser nulos para compatibilidade com legado
+  categoriaId   Int?        @map("categoria_id")
+  categoria     Categoria?  @relation(fields: [categoriaId], references: [id], onDelete: SetNull)
+
+  localizacaoId Int?        @map("localizacao_id")
+  localizacao   Localizacao? @relation(fields: [localizacaoId], references: [id], onDelete: SetNull)
+
+  // Campos de controle — preenchidos automaticamente pelo Prisma
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt      @map("updated_at")
+
+  // Mesmo código de barras pode existir em lotes com datas diferentes
+  @@unique([codigoBarras, dataValidade], name: "produto_lote_unique", map: "produtos_codigo_data_unique")
+  @@map("produtos")
+}

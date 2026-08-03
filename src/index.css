@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+/* ─── Design tokens ───────────────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --color-bg:            #F4F6F8;
+  --color-white:         #ffffff;
+
+  /* Blue */
+  --color-blue:          #2563EB;
+  --color-blue-dark:     #1d4ed8;
+  --color-blue-light:    #EFF6FF;
+  --color-blue-border:   #BFDBFE;
+
+  /* Green */
+  --color-green:         #22C55E;
+  --color-green-dark:    #16a34a;
+  --color-green-light:   #F0FDF4;
+  --color-green-border:  #BBF7D0;
+
+  /* Amber/Yellow */
+  --color-yellow:        #F59E0B;
+  --color-yellow-dark:   #92400E;
+  --color-yellow-light:  #FFFBEB;
+  --color-yellow-border: #FDE68A;
+
+  /* Red */
+  --color-red:           #EF4444;
+  --color-red-dark:      #B91C1C;
+  --color-red-light:     #FEF2F2;
+  --color-red-border:    #FECACA;
+
+  /* Neutrals */
+  --color-gray:          #64748B;
+  --color-gray-light:    #F1F5F9;
+  --color-border:        #E2E8F0;
+  --color-text:          #0F172A;
+  --color-text-soft:     #64748B;
+  --color-text-muted:    #94A3B8;
+
+  /* Layout */
+  --sidebar-w:           240px;
+  --sidebar-w-collapsed: 64px;
+  --header-h:            56px;
+
+  /* Shadows */
+  --shadow-xs:    0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-sm:    0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card:  0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-md:    0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-modal: 0 20px 60px -10px rgb(0 0 0 / 0.22), 0 8px 16px -4px rgb(0 0 0 / 0.08);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #CBD5E1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* ─── Accessible focus ring ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Date picker icon ───────────────────────────────────────────────────── */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.45;
+  cursor: pointer;
+}
+
+/* ─── Fade-in animation for page content ────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.18s ease-out both; }
+
+/* ─── Modal slide-in ─────────────────────────────────────────────────────── */
+@keyframes slideIn {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+.animate-slide-in { animation: slideIn 0.2s ease-out both; }
+
+/* ─── Skeleton shimmer ───────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e8edf2 50%, #f1f5f9 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
