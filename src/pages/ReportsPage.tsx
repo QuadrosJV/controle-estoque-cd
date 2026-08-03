@@ -218,7 +218,7 @@ export default function ReportsPage() {
                           <span style={{ fontFamily: "var(--font-mono)" }} className="text-xs">{p.dataValidade}</span>
                         </td>
                         <td className="px-4 py-2.5">
-                          <Badge status={getExpiryStatus(p.dataValidade)} size="sm" />
+                          <Badge status={getProductValidade(p).status} size="sm" />
                         </td>
                       </tr>
                     ))}
