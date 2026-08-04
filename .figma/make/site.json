@@ -1,0 +1,10 @@
+{
+  "description": "Manage product expiration dates efficiently with a user-friendly web application designed for inventory control in businesses, ensuring timely stock management.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
